@@ -76,7 +76,7 @@ class LinkedList:
                         previousNode.next = currentNode.next
                     self.size -= 1
                 # Forward on the list
-                previousNode=currentNode
+                previousNode = currentNode
                 currentNode = currentNode.next
         return self
 
