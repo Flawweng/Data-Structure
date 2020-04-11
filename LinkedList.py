@@ -44,8 +44,8 @@ class LinkedList:
             i = 0
             while i < index -1:
                 currentNode = currentNode.next
-            i += 1
-            currentNode.next = currentNode.next.next
+                i += 1
+            currentNode.next = currentNode.next.next if currentNode.next.next else None
         self.size -= 1
 
 
@@ -102,7 +102,7 @@ class LinkedList:
             self.next = nextNode
 
         def toString(self):
-            return '<Node: {node.value} - next: {node.next}>'.format(node=self)
+            return '{node.value} --> {node.next}'.format(node=self)
 
         def __str__(self):
             return self.toString()
@@ -133,6 +133,6 @@ l.addAtIndex("Test", 4)
 print("Add at index 4 : " + str(l) + " - Size: " + str(l.size))
 
 l = LinkedList(1, 2, "LOL", "Yes", 2)
-l.removeAtIndex(1)
-print("Remove element at index 1: " + str(l) + " - Size: " + str(l.size))
+l.removeAtIndex(2)
+print("Remove element at index 2: " + str(l) + " - Size: " + str(l.size))
 
