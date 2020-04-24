@@ -38,9 +38,7 @@ class LinkedList:
         self.size += 1
         return self
 
-   """
-   Remove from the list the node at the index.
-   """ 
+   # Remove from the list the node at the index.
     def removeAtIndex(self, index):
         if(self.size - 1 < index):
             raise ValueError("Cannot remove node at index " + str(index) + " - list size: " + str(self.size))
@@ -55,7 +53,6 @@ class LinkedList:
             currentNode.next = currentNode.next.next if currentNode.next.next else None
         self.size -= 1
         return self
-
 
     """
     Remove from the list all nodes with the value passed.
