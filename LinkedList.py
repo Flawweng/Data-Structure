@@ -4,12 +4,16 @@ class LinkedList:
         self.head = None
         self.size = 0
         for arg in args:
-            self.add(arg)
+            self.append(arg)
 
-    """
-    Add at the end of the list a new node with the value passed.
-    """
-    def add(self, value):
+    # Insert new node at the beginning of the list.
+    def push(self, value):
+        self.head = self.Node(value, self.head)
+        self.size += 1
+        return self
+
+    # Append at the end of the list a new node with the value passed.
+    def append (self, value):
         # List is empty
         if self.head is None:
             self.head = self.Node(value)
@@ -22,9 +26,7 @@ class LinkedList:
         self.size += 1
         return self
 
-    """
-    Add a node at the index with the value passed.
-    """
+    # Add a node at the index with the value passed.
     def addAtIndex(self, value, index):
         # No insert if index superior to. 
         if(self.size - 1 < index):
@@ -38,7 +40,7 @@ class LinkedList:
         self.size += 1
         return self
 
-   # Remove from the list the node at the index.
+    # Remove from the list the node at the index.
     def removeAtIndex(self, index):
         if(self.size - 1 < index):
             raise ValueError("Cannot remove node at index " + str(index) + " - list size: " + str(self.size))
@@ -48,59 +50,53 @@ class LinkedList:
             currentNode = self.head
             # Loop until to be at node before the one to be deleted.
             for i in range(index - 1):
-                print(i)
                 currentNode = currentNode.next
             currentNode.next = currentNode.next.next if currentNode.next.next else None
         self.size -= 1
         return self
 
-    """
-    Remove from the list all nodes with the value passed.
-    """ 
+    # Remove from the list all nodes with the value passed.
     def remove(self,value):
-        # Test if list is empty
-        if(self.head is not None):
-            currentNode = self.head
-            previousNode = None
-            # Loop on all nodes
-            while currentNode is not None:    
-                # Test if node has to be remove
-                if currentNode.value == value:
-                    # First element has to be removed
-                    if(previousNode == None):
-                        self.head = currentNode.next
-                        # List had only one element, list is empty
-                        if self.head is None:
-                            self.size -= 1
-                            return self
-                    else:
-                        # Remove last element
-                        if currentNode.next is None:
-                            previousNode.next = None
-                            self.size -= 1
-                            return self
-                        # Remove current element
-                        previousNode.next = currentNode.next
-                    self.size -= 1
-                # Forward on the list
-                previousNode = currentNode
-                currentNode = currentNode.next
+        if self.head is None: return None
+        currentNode = self.head
+        previousNode = None
+        while currentNode:
+            if currentNode.value == value:
+                # List has only one element
+                if previousNode is None :
+                    self.head = currentNode.next
+                else:
+                    # Link previous node to next node
+                    previousNode.next = currentNode.next
+                self.size -= 1
+            previousNode = currentNode
+            currentNode = currentNode.next
         return self
-
-    """
-    Search and return nodes existing in the list with the value passed.
-    """ 
+        
+    # Search and return nodes existing in the list with the value passed.
     def search(self, value):
         result = []
         currentNode = self.head
-        while currentNode is not None:
+        while currentNode:
             if currentNode.value == value:
                 result.append(currentNode)
             currentNode = currentNode.next
         return result
-    """
-    Test if lists are equals compared to elements values. 
-    """ 
+    
+    # Reverse the list
+    def reverse(self):
+        currentNode = self.head
+        previousNode = None
+        nextNode = None
+        while currentNode:
+            nextNode = currentNode.next
+            currentNode.next = previousNode
+            previousNode = currentNode
+            currentNode = nextNode
+        self.head = previousNode
+        return self
+
+    # Test if lists are equals compared to elements values. 
     def equals(self, obj):
         if not isinstance(obj, LinkedList) or self.size != obj.size:
             return False
@@ -129,39 +125,3 @@ class LinkedList:
         def __str__(self):
             return self.toString()
 
-if __name__ =="__main__":
-    l = LinkedList(1, 2, "LOL", "Yes", 2) 
-    m = LinkedList(1, 2, "LOL", "Yes", 22)
-    print(l.equals(m))
-
-
-
-
-"""
-l = LinkedList(1, 2, "LOL", "Yes", 2)
-print(str(l) + "- Size: " + str(l.size))
-print("Remove element : 1")
-l.remove(1)
-print(str(l) + " - Size: " + str(l.size))
-
-l = LinkedList(1, 2, "LOL", "Yes", 2)
-print("Remove element : 2")
-l.remove(2)
-print(str(l) + " - Size: " + str(l.size))
-
-l = LinkedList(1, 2, "LOL", "Yes", 2)
-print("Remove element : Yes")
-l.remove("Yes")
-print(str(l) + " - Size: " + str(l.size))
-
-l = LinkedList(1, 2, "LOL", "Yes", 2)
-l.search(2)
-print("Search for element 2: " + " ".join(str(node) for node in l.search(2)))
-
-l.addAtIndex("Test", 4)
-print("Add at index 4 : " + str(l) + " - Size: " + str(l.size))
-"""
-l = LinkedList(1, 2, "LOL", "Yes", 2)
-print(l)
-l.removeAtIndex(2)
-print("Remove element at index 0: " + str(l) + " - Size: " + str(l.size))
