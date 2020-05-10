@@ -14,8 +14,8 @@ class Stack:
     
     # Remove element on top of the stack
     def pop(self):
-        self.storage.pop()
-        return self
+        size = len(self.storage)
+        return None if size == 0 else self.storage.pop(size -1)
 
     # Get the top element of the stack
     def top(self):
@@ -30,7 +30,7 @@ class Stack:
     def size(self):
         return len(self.storage)
 
-    # Indicate if stack is empty
+    # Indicate if stack is emptyD
     def empty(self):
         return True if len(self.storage) == 0 else False
 
@@ -41,6 +41,25 @@ class Stack:
         for i in range(self.size()):
             if self.storage[i] != obj.storage[i]: return False
         return True
- 
+    
     def __str__(self):
         return str(self.storage)
+
+# Insert item at the bottom of the stack
+# Remove all items, insert the item when stack is empty and re-push items
+def insertAtBottom(stack, item):
+    if stack.empty(): 
+        stack.push(item)
+    else:
+        temp = stack.pop()
+        insertAtBottom(stack, item)
+        stack.push(temp)
+
+# Reverse the stack - Recursive method
+# Pop all elements and insert at bottom
+def reverse(stack):
+    if not stack.empty():
+        item = stack.pop()
+        reverse(stack)
+        insertAtBottom(stack,item)
+
