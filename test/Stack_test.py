@@ -1,6 +1,7 @@
 import unittest
 from Stack import Stack
 from Stack import reverse
+from Stack import sort
 
 class StackTest(unittest.TestCase):
 
@@ -42,6 +43,11 @@ class StackTest(unittest.TestCase):
         s = Stack(1,2,3,"Hello","World")
         reverse(s)
         self.assertTrue(s.equals(Stack("World","Hello",3,2,1)))
+    
+    def test_sort(self):
+        s = Stack(-3,15,18,-5,30)
+        sort(s)
+        self.assertTrue(s.equals(Stack(-5,-3,15,18,30)))
 
 if __name__ == '__main__':
     unittest.main()
